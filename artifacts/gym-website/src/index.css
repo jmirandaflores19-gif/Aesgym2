@@ -52,7 +52,7 @@
 :root {
   --background: 0 0% 2%;
   --foreground: 0 0% 96%;
-  --primary: 345 65% 38%;
+  --primary: 0 88% 48%;
   --primary-foreground: 0 0% 0%;
   --card: 0 0% 4%;
   --card-foreground: 0 0% 96%;
@@ -60,10 +60,10 @@
   --border: 0 0% 12%;
   --muted: 0 0% 8%;
   --muted-foreground: 0 0% 55%;
-  --accent: 345 65% 38%;
+  --accent: 0 88% 48%;
   --accent-foreground: 0 0% 98%;
   --input: 0 0% 15%;
-  --ring: 345 65% 38%;
+  --ring: 0 88% 48%;
   
   --popover: 0 0% 4%;
   --popover-foreground: 0 0% 96%;
@@ -71,7 +71,7 @@
   --sidebar: 0 0% 4%;
   --sidebar-foreground: 0 0% 96%;
   --sidebar-border: 0 0% 10%;
-  --sidebar-primary: 345 65% 38%;
+  --sidebar-primary: 0 88% 48%;
   --sidebar-primary-foreground: 0 0% 98%;
   --destructive: 0 84.2% 60.2%;
   --destructive-foreground: 0 0% 98%;
@@ -84,7 +84,7 @@
 .dark {
   --background: 0 0% 2%;
   --foreground: 0 0% 96%;
-  --primary: 345 65% 38%;
+  --primary: 0 88% 48%;
   --primary-foreground: 0 0% 0%;
   --card: 0 0% 4%;
   --card-foreground: 0 0% 96%;
@@ -92,10 +92,10 @@
   --border: 0 0% 12%;
   --muted: 0 0% 8%;
   --muted-foreground: 0 0% 55%;
-  --accent: 345 65% 38%;
+  --accent: 0 88% 48%;
   --accent-foreground: 0 0% 98%;
   --input: 0 0% 15%;
-  --ring: 345 65% 38%;
+  --ring: 0 88% 48%;
   
   --popover: 0 0% 4%;
   --popover-foreground: 0 0% 96%;
@@ -103,7 +103,7 @@
   --sidebar: 0 0% 4%;
   --sidebar-foreground: 0 0% 96%;
   --sidebar-border: 0 0% 10%;
-  --sidebar-primary: 345 65% 38%;
+  --sidebar-primary: 0 88% 48%;
   --sidebar-primary-foreground: 0 0% 98%;
   --destructive: 0 84.2% 60.2%;
   --destructive-foreground: 0 0% 98%;
@@ -131,7 +131,7 @@
     backdrop-filter: blur(8px);
   }
   .gold-gradient-text {
-    background-image: linear-gradient(to right, #8B1A3A, #D4537A, #8B1A3A);
+    background-image: linear-gradient(to right, #CC0000, #FF3333, #CC0000);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
