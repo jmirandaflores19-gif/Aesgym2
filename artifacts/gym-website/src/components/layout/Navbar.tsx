@@ -1,129 +1,96 @@
-import { useState, useEffect } from "react";
-import { Menu, X } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import React, { useState, useEffect } from 'react';
+import { Link } from 'wouter';
+import { Menu, X } from 'lucide-react';
+import { AnimatePresence, motion } from 'framer-motion';
 
-const navLinks = [
-  { name: "Inicio", href: "#inicio" },
-  { name: "Nosotros", href: "#nosotros" },
-  { name: "Beneficios", href: "#beneficios" },
-  { name: "Sucursales", href: "#sucursales" },
-];
-
-export function Navbar() {
-  const [isScrolled, setIsScrolled] = useState(false);
+export default function Navbar() {
+  const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      setScrolled(window.scrollY > 20);
     };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault();
-    setMobileMenuOpen(false);
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
-  };
+  const navLinks = [
+    { label: "Inicio", href: "/" },
+    { label: "Sucursales", href: "/sucursales" },
+    { label: "Beneficios", href: "/#beneficios" },
+    { label: "Contacto", href: "/#contacto" }
+  ];
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? "bg-background/80 backdrop-blur-md border-b border-white/5 py-4"
-          : "bg-transparent py-6"
-      }`}
-    >
-      <div className="container mx-auto px-6 md:px-12 flex items-center justify-between">
-        <a 
-          href="#inicio" 
-          onClick={(e) => scrollToSection(e, "#inicio")}
-          className="font-serif text-2xl font-bold tracking-widest text-primary"
-        >
-          APEX FITNESS
-        </a>
-
-        {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-8">
-          <ul className="flex items-center gap-8">
+    <>
+      <nav 
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+          scrolled ? 'backdrop-blur-md bg-black/80 border-b border-white/10' : 'bg-transparent'
+        }`}
+      >
+        <div className="container mx-auto px-6 h-20 flex items-center justify-between">
+          <Link href="/" className="flex items-center gap-1 font-heading font-black tracking-[0.2em] uppercase text-2xl">
+            <span className="text-white">AESGYM</span>
+            <span className="gold-gradient-text">BOLIVIA</span>
+          </Link>
+          
+          <div className="hidden md:flex gap-8">
             {navLinks.map((link) => (
-              <li key={link.name}>
-                <a
-                  href={link.href}
-                  onClick={(e) => scrollToSection(e, link.href)}
-                  className="text-sm font-medium tracking-widest uppercase text-muted-foreground hover:text-primary transition-colors"
-                >
-                  {link.name}
-                </a>
-              </li>
+              <Link 
+                key={link.label} 
+                href={link.href}
+                className="text-sm font-medium tracking-wider text-gray-300 hover:text-primary transition-colors uppercase"
+              >
+                {link.label}
+              </Link>
             ))}
-          </ul>
-          <a
-            href="#sucursales"
-            onClick={(e) => scrollToSection(e, "#sucursales")}
-            className="group relative px-6 py-2 border border-primary text-primary font-medium tracking-widest uppercase text-sm overflow-hidden transition-all duration-300 hover:text-primary-foreground"
+          </div>
+
+          <button 
+            className="md:hidden text-white hover:text-primary transition-colors"
+            onClick={() => setMobileMenuOpen(true)}
           >
-            <span className="relative z-10">Únete Ahora</span>
-            <div className="absolute inset-0 h-full w-0 bg-primary transition-all duration-300 ease-out group-hover:w-full z-0" />
-          </a>
-        </nav>
+            <Menu size={28} />
+          </button>
+        </div>
+      </nav>
 
-        {/* Mobile Toggle */}
-        <button
-          className="md:hidden text-foreground p-2"
-          onClick={() => setMobileMenuOpen(true)}
-        >
-          <Menu className="w-6 h-6" />
-        </button>
-      </div>
-
-      {/* Mobile Menu Overlay */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="fixed inset-0 z-50 bg-background flex flex-col px-6 py-8"
+            className="fixed inset-0 bg-black/95 z-50 flex flex-col items-center justify-center gap-8"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
           >
-            <div className="flex justify-between items-center mb-12">
-              <span className="font-serif text-2xl font-bold tracking-widest text-primary">
-                APEX FITNESS
-              </span>
-              <button
-                className="text-foreground p-2"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                <X className="w-6 h-6" />
-              </button>
-            </div>
+            <button 
+              className="absolute top-6 right-6 text-white hover:text-primary transition-colors"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              <X size={32} />
+            </button>
             
-            <nav className="flex flex-col gap-6 items-center flex-1 justify-center">
-              {navLinks.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  onClick={(e) => scrollToSection(e, link.href)}
-                  className="text-2xl font-serif tracking-widest text-foreground hover:text-primary transition-colors"
-                >
-                  {link.name}
-                </a>
-              ))}
-              <a
-                href="#sucursales"
-                onClick={(e) => scrollToSection(e, "#sucursales")}
-                className="mt-8 px-8 py-3 bg-primary text-primary-foreground font-medium tracking-widest uppercase text-sm"
+            {navLinks.map((link, i) => (
+              <motion.div
+                key={link.label}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.1 }}
               >
-                Únete Ahora
-              </a>
-            </nav>
+                <Link 
+                  href={link.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="text-2xl font-heading font-bold tracking-widest uppercase text-white hover:text-primary transition-colors"
+                >
+                  {link.label}
+                </Link>
+              </motion.div>
+            ))}
           </motion.div>
         )}
       </AnimatePresence>
-    </header>
+    </>
   );
 }
